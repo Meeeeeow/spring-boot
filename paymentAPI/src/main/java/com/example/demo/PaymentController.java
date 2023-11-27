@@ -1,14 +1,17 @@
 package com.example.demo;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
-@Controller
+@RestController
+@RequestMapping("/abc")
 public class PaymentController {
-	private  CustomerRepository customersRepo; 
+	@Autowired
+	PaymentService paymentService; 
 	
 	
 	@GetMapping("/submission")
@@ -18,7 +21,7 @@ public class PaymentController {
 	@PostMapping("/submitForms")
 	public String checkExistingAccount(@RequestParam("name") String name,
 			@RequestParam("email") String email) {
-		boolean accountExists = customersRepo.existsByCustomerNameAndCustomerEmail(name, email);
+		boolean accountExists = paymentService.existsByCustomerNameAndCustomerEmail(name, email);
 		System.out.println("Customer account is: " + name + "\\nEmail is: " + email);
 		System.out.println(accountExists);
 		if(accountExists)

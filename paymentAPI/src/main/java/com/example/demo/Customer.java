@@ -41,10 +41,10 @@ public class Customer {
 	public void setAmount_present(int amount_present) {
 		this.amount_present = amount_present;
 	}
-	@Override
-	public String toString() {
-		return "Customer [customer_id=" + customer_id + ", customer_name=" + customer_name + ", customer_email="
-				+ customer_email + ", amount_present=" + amount_present + "]";
-	}
+//	@Override
+//	public String toString() {
+//		return "Customer [customer_id=" + customer_id + ", customer_name=" + customer_name + ", customer_email="
+//				+ customer_email + ", amount_present=" + amount_present + "]";
+//	}
 
 }
