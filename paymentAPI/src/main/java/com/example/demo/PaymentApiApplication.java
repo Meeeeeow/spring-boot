@@ -9,14 +9,12 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.scheduling.annotation.EnableScheduling;
 
-@SpringBootApplication(scanBasePackages={
-		"com.example.demo"})
-@ComponentScan(basePackages = "com.example.demo.*")
-@EnableJpaRepositories("com.example.demo.*")
-@EntityScan(basePackageClasses = Customer.class)
-@EnableScheduling
-@EnableAsync
-@EnableCaching
+import com.example.demo.model.Customer;
+
+@SpringBootApplication
+@EnableJpaRepositories("com.example.demo.repository")
+@ComponentScan(basePackages = { "com.example.demo.*" })
+@EntityScan("com.example.demo.model")  
 public class PaymentApiApplication {
 
 	public static void main(String[] args) {
