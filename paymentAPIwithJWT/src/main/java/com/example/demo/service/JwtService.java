@@ -18,7 +18,7 @@ import io.jsonwebtoken.security.Keys;
 
 @Component
 public class JwtService {
-	public static final long JWT_TOKEN_VALIDITY = 30 * 60 * 1000; //30 mins
+	public static final long JWT_TOKEN_VALIDITY = 3 * 60 * 1000; //30 mins
 	
 	@Value("${jwt.secret}")
 	private String secret;

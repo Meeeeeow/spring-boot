@@ -28,15 +28,7 @@ public class AccountCustomer {
 	    private String password;
 	    @Column(name = "roles")
 	    private String roles;
-	    @Column(name="current_token")
-	    private String current_token;
-	    
-		public String getCurrent_token() {
-			return current_token;
-		}
-		public void setCurrent_token(String current_token) {
-			this.current_token = current_token;
-		}
+
 		public int getId() {
 			return id;
 		}

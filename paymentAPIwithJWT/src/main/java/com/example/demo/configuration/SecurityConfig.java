@@ -62,7 +62,7 @@ public class SecurityConfig {
     	            .authorizeHttpRequests(auth ->
     	                    {
 								try {
-                                    auth.requestMatchers("/api/new", "/api/authenticate").permitAll()
+                                    auth.requestMatchers("/api/addNew", "/api/authenticate","/api/refreshToken").permitAll()
                                             .requestMatchers("/api/**")
                                             .authenticated().and()
                                             .sessionManagement(management -> management
@@ -75,7 +75,8 @@ public class SecurityConfig {
 								}
 							}
     	            )
-    	            .httpBasic(Customizer.withDefaults()).build();
+//    	            .httpBasic(Customizer.withDefaults())
+    	            .build();
     }
     @Bean
     public PasswordEncoder passwordEncoder() {
