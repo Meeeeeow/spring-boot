@@ -8,6 +8,7 @@ import java.util.function.Function;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.web.header.Header;
 import org.springframework.stereotype.Component;
 
 import io.jsonwebtoken.Claims;
@@ -18,7 +19,7 @@ import io.jsonwebtoken.security.Keys;
 
 @Component
 public class JwtService {
-	public static final long JWT_TOKEN_VALIDITY = 3 * 60 * 1000; //30 mins
+	public static final long JWT_TOKEN_VALIDITY = 5 * 60 * 1000; //5 mins
 	
 	@Value("${jwt.secret}")
 	private String secret;
@@ -31,12 +32,13 @@ public class JwtService {
 	private String createToken(Map<String, Object> claims, 
 			String username) {
 		// TODO Auto-generated method stub
-		return Jwts.builder()
-                .setClaims(claims)
-                .setSubject(username)
-                .setIssuedAt(new Date(System.currentTimeMillis()))
-                .setExpiration(new Date(System.currentTimeMillis()+JWT_TOKEN_VALIDITY))
-                .signWith(getSignKey(), SignatureAlgorithm.HS256).compact();
+		io.jsonwebtoken.Header header = Jwts.header();
+		header.setType("JWT");
+		
+		return Jwts.builder().setHeader((Map<String, Object>) header).setClaims(claims).setSubject(username)
+				.setIssuedAt(new Date(System.currentTimeMillis()))
+				.setExpiration(new Date(System.currentTimeMillis() + JWT_TOKEN_VALIDITY))
+				.signWith(getSignKey(), SignatureAlgorithm.HS256).compact();
 	}
 
 	private Key getSignKey() {

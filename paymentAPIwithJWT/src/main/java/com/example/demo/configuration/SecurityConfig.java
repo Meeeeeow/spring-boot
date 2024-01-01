@@ -20,6 +20,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.validation.beanvalidation.MethodValidationPostProcessor;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
@@ -62,7 +63,7 @@ public class SecurityConfig {
     	            .authorizeHttpRequests(auth ->
     	                    {
 								try {
-                                    auth.requestMatchers("/api/addNew", "/api/authenticate","/api/refreshToken").permitAll()
+                                    auth.requestMatchers("/api/welcome","/api/addNew", "/api/authenticate","/api/refreshToken","/api/settlePayment","/api/health").permitAll()
                                             .requestMatchers("/api/**")
                                             .authenticated().and()
                                             .sessionManagement(management -> management
@@ -110,4 +111,9 @@ public class SecurityConfig {
 
 		return source;
 	}
+    
+    @Bean
+    public MethodValidationPostProcessor methodValidationPostProcessor() {
+        return new MethodValidationPostProcessor();
+    }
 }

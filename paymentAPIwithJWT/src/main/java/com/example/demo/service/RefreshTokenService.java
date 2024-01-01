@@ -7,6 +7,7 @@ import java.util.UUID;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.example.demo.exception.RefreshTokenExpiredException;
 import com.example.demo.model.RefreshToken;
 import com.example.demo.repository.AccountCustomerRepository;
 import com.example.demo.repository.RefreshTokenRepository;
@@ -36,7 +37,7 @@ public class RefreshTokenService {
 	 public RefreshToken verifyExpiration(RefreshToken token) {
 	        if (token.getExpiryDate().compareTo(Instant.now()) < 0) {
 	            refreshTokenRepository.delete(token);
-	            throw new RuntimeException(token.getToken() + " Refresh token was expired. Please make a new signin request");
+	            throw new RefreshTokenExpiredException("Refresh token was expired. Please make a new signin request");
 	        }
 	        return token;
 	    }

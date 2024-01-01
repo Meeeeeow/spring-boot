@@ -6,6 +6,10 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -16,17 +20,27 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Table(name = "customer_table")
 public class AccountCustomer {
-	 @Id
+	 	@Id
 	    @GeneratedValue(strategy = GenerationType.IDENTITY)
-	    @Column(name = "customer_id")
+	    @Column(name = "customer_id", unique = true)
 	    private int id;
 	    @Column(name = "customer_name")
+	    @NotBlank(message = "Name is required")
 	    private String name;
-	    @Column(name = "customer_email")
+	    @Column(name = "customer_email" , unique = true)
+	    @NotBlank(message = "Email is required")
+	    @Email(message = "Invalid Email format")
 	    private String email;
 	    @Column(name = "password")
+	    @NotBlank(message = "Password is required")
+	    @Size(min = 8, message = "Password must be at least 8 characters long")
+	    @Pattern(
+	        regexp = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=]).*$",
+	        message = "Password must include at least one digit, one lowercase, one uppercase, and one special character."
+	    )
 	    private String password;
 	    @Column(name = "roles")
+	    @NotBlank(message = "Role is required")
 	    private String roles;
 
 		public int getId() {

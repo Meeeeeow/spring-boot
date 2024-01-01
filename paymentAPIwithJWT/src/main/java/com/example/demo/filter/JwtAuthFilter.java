@@ -11,6 +11,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import com.example.demo.configuration.UserInfoUserDetailsService;
+import com.example.demo.exception.JwtTokenExpiredException;
 import com.example.demo.service.JwtService;
 
 import jakarta.servlet.FilterChain;
@@ -45,6 +46,8 @@ public class JwtAuthFilter extends OncePerRequestFilter{
 				UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
 				authToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
 				SecurityContextHolder.getContext().setAuthentication(authToken);
+			}else {
+				throw new JwtTokenExpiredException("JWT Token has expired.");
 			}
 		}
 		filterChain.doFilter(request, response);

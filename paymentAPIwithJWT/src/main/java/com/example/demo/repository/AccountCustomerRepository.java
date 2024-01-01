@@ -11,5 +11,5 @@ import com.example.demo.model.AccountCustomer;
 
 public interface AccountCustomerRepository extends JpaRepository<AccountCustomer, Integer> {
     Optional<AccountCustomer> findByName(String username);
-
+    
 }
